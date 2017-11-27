@@ -10,7 +10,8 @@ app.set("view engine", "ejs");
 // SCHEMA SETUP
 var campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema);
@@ -18,7 +19,8 @@ var Campground = mongoose.model("Campground", campgroundSchema);
 // Campground.create(
 //     {
 //         name: "Granite Hill", 
-//         image: "https://farm3.staticflickr.com/2353/2069978635_2eb8b33cd4.jpg"
+//         image: "https://farm3.staticflickr.com/2353/2069978635_2eb8b33cd4.jpg",
+//         description: "This is a huge granite hill. No bathrooms, no water, just beautiful granite!"
         
 //     }, function(err, campground) {
 //         if(err) {
@@ -34,6 +36,7 @@ app.get("/", function(req, res) {
     res.render("landing");
 });
 
+// INDEX ROUTE - show campgrounds in DB
 app.get("/campgrounds", function(req, res) {
     // Get all campgrounds from DB
     Campground.find({}, function(err, campgrounds) {
@@ -46,6 +49,7 @@ app.get("/campgrounds", function(req, res) {
     });
 });
 
+// CREATE ROUTE - add new campground to DB
 app.post("/campgrounds", function(req, res) {
     var name = req.body.name;
     var image = req.body.image;
@@ -63,8 +67,16 @@ app.post("/campgrounds", function(req, res) {
     });
 });
 
+// NEW ROUTE - show form
 app.get("/campgrounds/new", function(req, res) {
     res.render("new");
+});
+
+// SHOW ROUTE - show campground given ID
+app.get("/campgrounds/:id", function(req, res) {
+    // Find campground with procided ID
+    // Render show template with that campground
+    res.send("This will be the showpage one day...");
 });
 
 app.listen(process.env.PORT, process.env.IP, function() {

@@ -29,3 +29,16 @@
 * Setup campground model
 * Use campground model inside of our routes
 
+# Show Page
+* Review RESTFUL routes we've seen so far
+    * INDEX
+        * /dogs GET Display list of all dogs
+    * NEW
+        * /dogs/new GET Displays form to make new dog
+    * CREATE
+        * /dogs POST Add new dog to DB
+    * SHOW
+        * /dogs/:id GET Shows info about one dog
+* Add description to our campground model
+* Show db.collections.drop()
+* Add a show route/template
