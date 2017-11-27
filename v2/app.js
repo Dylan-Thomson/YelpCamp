@@ -44,7 +44,7 @@ app.get("/campgrounds", function(req, res) {
             console.log(err);
         }
         else {
-            res.render("campgrounds", {campgrounds: campgrounds});
+            res.render("index", {campgrounds: campgrounds});
         }
     });
 });
@@ -53,7 +53,8 @@ app.get("/campgrounds", function(req, res) {
 app.post("/campgrounds", function(req, res) {
     var name = req.body.name;
     var image = req.body.image;
-    var newCampground = {name: name, image: image};
+    var description = req.body.description;
+    var newCampground = {name: name, image: image, description: description};
     // Create a new campground and save to DB
     Campground.create(newCampground, function(err, newlyCreated) {
         if(err) {
@@ -72,11 +73,18 @@ app.get("/campgrounds/new", function(req, res) {
     res.render("new");
 });
 
-// SHOW ROUTE - show campground given ID
+// SHOW ROUTE - show info about one campground given ID
 app.get("/campgrounds/:id", function(req, res) {
     // Find campground with procided ID
-    // Render show template with that campground
-    res.send("This will be the showpage one day...");
+    Campground.findById(req.params.id, function(err, foundCampground) {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            // Render show template with that campground
+            res.render("show", {campground: foundCampground});
+        }
+    });
 });
 
 app.listen(process.env.PORT, process.env.IP, function() {
